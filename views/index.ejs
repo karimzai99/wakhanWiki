@@ -1,0 +1,10 @@
+<h1>List of Provinces</h1>
+<ul>
+  <% provinces.forEach(p => { %>
+  <li>
+    <h3><%= p.name %></h3>
+    <p><%= p.description %></p>
+    <p><strong> Known For: </strong> <%= p.knownFor %></p>
+  </li>
+  <% }); %>
+</ul>
