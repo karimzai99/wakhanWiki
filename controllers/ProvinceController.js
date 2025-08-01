@@ -11,10 +11,10 @@ router.get("/seed", (req, res) => {
       name: "kabul",
       description: "the Capital City Of Afghanistan",
       knownFor: "Ahmad Shah Baba",
-      famousePeople: [
+      famousPeople: [
         { name: "Ahmad Shah durrani", bio: "the builder of Afghanistan" },
       ],
-      famouseFood: [
+      famousFood: [
         { name: "Qabuli", description: "it is very old food in Kabul" },
       ],
     },
@@ -22,13 +22,13 @@ router.get("/seed", (req, res) => {
       name: "kunar",
       description: "the beutifull province of Afghanistan",
       knownFor: "Alama sayed jamaluddin afghan",
-      famousePeople: [
+      famousPeople: [
         {
           name: "sayed jamaluddin afghan",
           bio: "the first genuis of afghanistan",
         },
       ],
-      famouseFood: [
+      famousFood: [
         {
           name: "Daanda",
           description: "famouse amoung friends to have it at the sea shore",
@@ -43,6 +43,17 @@ router.get("/seed", (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+});
+
+// INDUCES
+// index route
+router.get("/", async (req, res) => {
+  try {
+    const provinces = await Province.find();
+    res.render("index.ejs", { provinces });
+  } catch (err) {
+    res.send(err);
+  }
 });
 
 module.exports = router;

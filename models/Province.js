@@ -4,13 +4,13 @@ const provinceSchema = new mongoose.Schema({
   name: String, // name of province
   description: String, // a short paragraph about province
   knownFor: String, // what the province famouse for
-  famousePeople: [
+  famousPeople: [
     {
       name: String,
       bio: String,
     },
   ],
-  famouseFood: [
+  famousFood: [
     {
       name: String,
       description: String,
