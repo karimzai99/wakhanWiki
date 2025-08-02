@@ -26,7 +26,7 @@ router.get("/seed", (req, res) => {
           img: "2wCEAAkGBxMTEhUTExMVFhUXGBgYFxgYGBgXGhcYGhgYFxgaGBgYHSggHR0lHR0gITEiJSkrLi4uFx8zODMtNygtLisBCgoKDg0OGxAQGysmICYvLS0tLS8tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLf",
         },
       ],
-      famous_foodrs: [
+      famous_food: [
         {
           name: "Qabuli",
           description: "it is very old food in Kabul",
@@ -59,7 +59,7 @@ router.get("/seed", (req, res) => {
           img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQyJu38WpsCmt1IxJ0UHlAAY0p-AswcOzzitA&s",
         },
       ],
-      famous_foodrs: [
+      famous_food: [
         {
           name: "Daanda",
           description: "famouse amoung friends to have it at the sea shore",
@@ -82,6 +82,7 @@ router.get("/seed", (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const provinces = await Province.find();
+
     res.render("index.ejs", {
       provinces,
     });
@@ -95,6 +96,7 @@ router.get("/:id", async (req, res) => {
   // res.render("show");
   try {
     const province = await Province.findById(req.params.id);
+
     console.log(province);
     // const provincePeople = await Province.findById({ famous_people });
 

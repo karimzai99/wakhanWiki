@@ -1,18 +1,33 @@
 <h2><%= province.name %></h2>
+<a href="/">go back</a>
 <p><%= province.description %></p>
-<p>this province is known for:<strong> <%= province.knownFor %></strong></p>
+<p>this province is known for:<strong> <%= province.known_for %></strong></p>
 
 <h1>famous people</h1>
+<% province.famous_people.forEach(el => { %>
 <ul>
   <li>
-    <% province.famous_people.forEach(el => { %> <%= el.name %> bio: <%= el.bio
-    %> <% }) %>
+    <%= el.name %>
+    <ul>
+      <li><%= el.bio %></li>
+    </ul>
+  </li>
+</ul>
+<img src="<%= el.img %>" />
+<% }) %>
+
+<h1>famous food</h1>
+<% province.famous_food.forEach(el => {%>
+<ul>
+  <li>
+    <%= el.name %>
+    <ul>
+      <li><%= el.description %></li>
+    </ul>
   </li>
 </ul>
 
-<h1>famous food</h1>
-<ul>
-  <li><%= %></li>
-</ul>
+<img src="<%= el.img %> " width="300px" />
+<%}) %>
 
-<a href="/">go back</a>
+<br />
