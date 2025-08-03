@@ -1,5 +1,9 @@
 <h2><%= province.name %></h2>
-<a href="/">go back</a>
+<a href="/">go back</a> <br />
+<% province.pictures.forEach(pic => { %>
+<img src="<%= pic.img %>" width="300px" />
+
+<% }) %>
 <p><%= province.description %></p>
 <p>this province is known for:<strong> <%= province.known_for %></strong></p>
 
