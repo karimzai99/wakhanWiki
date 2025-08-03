@@ -91,6 +91,11 @@ router.get("/", async (req, res) => {
   }
 });
 
+// New route
+router.get("/new", (req, res) => {
+  res.render("new");
+});
+
 // Show route province
 router.get("/:id", async (req, res) => {
   // res.render("show");
@@ -108,4 +113,63 @@ router.get("/:id", async (req, res) => {
     res.send(err);
   }
 });
+
+// create route
+router.post("/", async (req, res) => {
+  try {
+    const { name, description, known_for } = req.body;
+
+    const pictures = Array.isArray(req.body.pictures)
+      ? req.body.pictures
+      : [req.body.pictures];
+
+    const names = Array.isArray(req.body.names)
+      ? req.body.names
+      : [req.body.names];
+
+    const bios = Array.isArray(req.body.bios) ? req.body.bios : [req.body.bios];
+
+    const food_names = Array.isArray(req.body.food_names)
+      ? req.body.food_names
+      : [req.body.food_names];
+
+    const food_descriptions = Array.isArray(req.body.food_descriptions)
+      ? req.body.food_descriptions
+      : [req.body.food_descriptions];
+
+    const food_imgs = Array.isArray(req.body.food_imgs)
+      ? req.body.food_imgs
+      : [req.body.food_imgs];
+
+    const people_imgs = Array.isArray(req.body.people_imgs)
+      ? req.body.people_imgs
+      : [req.body.people_imgs];
+
+    const famous_people = names.map((n, i) => ({
+      name: n,
+      bio: bios[i],
+      img: people_imgs[i],
+    }));
+
+    const famous_food = food_names.map((n, i) => ({
+      name: n,
+      description: food_descriptions[i],
+      img: food_imgs[i],
+    }));
+    console.log({ famous_food });
+    await Province.create({
+      name,
+      description,
+      known_for,
+      pictures: pictures.map((img) => ({ img })),
+      famous_people,
+      famous_food,
+    });
+
+    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;

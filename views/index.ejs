@@ -1,4 +1,61 @@
+<style>
+  body {
+    font-family: sans-serif;
+    margin: 20px;
+  }
+
+  h1 {
+    color: #333;
+    text-align: center;
+  }
+
+  a {
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+
+  h3 {
+    color: #555;
+    margin-top: 0;
+  }
+
+  p {
+    line-height: 1.6;
+  }
+
+  img {
+    border-radius: 4px;
+    margin-top: 10px;
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  strong {
+    color: #333;
+  }
+</style>
+
 <h1>List of Provinces</h1>
+
+<a href="/new"> new form </a>
 <ul>
   <% provinces.forEach(p => { %>
   <li>

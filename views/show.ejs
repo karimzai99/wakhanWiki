@@ -1,5 +1,73 @@
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f9;
+    color: #333;
+  }
+
+  h1,
+  h2 {
+    color: #4a4e69;
+    border-bottom: 2px solid #a3a6c5;
+    padding-bottom: 5px;
+    margin-top: 40px;
+  }
+
+  a {
+    color: #2a9d8f;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  img {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    /* The key change to make images appear side-by-side */
+    display: inline-block;
+    margin-right: 15px; /* Add some space between images */
+  }
+
+  p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  ul li {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  ul ul li {
+    background-color: #fafafa;
+    border: none;
+    padding: 5px 0 5px 20px;
+    margin-bottom: 5px;
+  }
+
+  strong {
+    color: #333;
+  }
+</style>
+
 <h2><%= province.name %></h2>
-<a href="/">go back</a> <br />
+
 <% province.pictures.forEach(pic => { %>
 <img src="<%= pic.img %>" width="300px" />
 
@@ -35,3 +103,5 @@
 <%}) %>
 
 <br />
+
+<a href="/">go back</a> <br />
