@@ -1,10 +1,8 @@
 const Province = require("../models/Province");
-
-// express
 const express = require("express");
 const router = express.Router();
 
-// SEED
+// SEED Route:
 router.get("/seed", (req, res) => {
   Province.insertMany([
     {
@@ -32,7 +30,6 @@ router.get("/seed", (req, res) => {
           description: "it is very old food in Kabul",
           img: "https://www.bandamirrestaurant.at/wp-content/uploads/2024/04/QabuliPalou.webp",
         },
-
         {
           name: "manto",
           description: "it is very old food in Kabul some extra information",
@@ -77,52 +74,95 @@ router.get("/seed", (req, res) => {
     });
 });
 
-// INDUCES
-// index route
+// Index route
 router.get("/", async (req, res) => {
   try {
     const provinces = await Province.find();
-
-    res.render("index.ejs", {
-      provinces,
-    });
+    res.render("index.ejs", { provinces });
   } catch (err) {
     res.send(err);
   }
 });
 
-// New route
+// New route:
 router.get("/new", (req, res) => {
   res.render("new");
 });
-// Delete route
+
+// Delete route:
 router.delete("/:id", async (req, res) => {
   try {
     await Province.findByIdAndDelete(req.params.id);
     res.redirect("/");
   } catch (err) {
     console.log(err);
+    res.status(500).send("Server Error");
   }
 });
-// Show route province
-router.get("/:id", async (req, res) => {
-  // res.render("show");
+
+// UPDATE Route (PUT):
+router.put("/:id", async (req, res) => {
   try {
-    const province = await Province.findById(req.params.id);
+    const { id } = req.params;
+    const { name, description, known_for } = req.body;
 
-    console.log(province);
-    // const provincePeople = await Province.findById({ famous_people });
+    // The logic to handle form arrays is moved here
+    const pictures = Array.isArray(req.body.pictures)
+      ? req.body.pictures
+      : [req.body.pictures];
+    const names = Array.isArray(req.body.names)
+      ? req.body.names
+      : [req.body.names];
+    const bios = Array.isArray(req.body.bios) ? req.body.bios : [req.body.bios];
+    const people_imgs = Array.isArray(req.body.people_imgs)
+      ? req.body.people_imgs
+      : [req.body.people_imgs];
+    const food_names = Array.isArray(req.body.food_names)
+      ? req.body.food_names
+      : [req.body.food_names];
+    const food_descriptions = Array.isArray(req.body.food_descriptions)
+      ? req.body.food_descriptions
+      : [req.body.food_descriptions];
+    const food_imgs = Array.isArray(req.body.food_imgs)
+      ? req.body.food_imgs
+      : [req.body.food_imgs];
 
-    res.render("show", {
-      province,
-      // provincePeople,
-    });
+    const famous_people = names.map((personName, i) => ({
+      name: personName,
+      bio: bios[i],
+      img: people_imgs[i],
+    }));
+
+    const famous_food = food_names.map((foodName, i) => ({
+      name: foodName,
+      description: food_descriptions[i],
+      img: food_imgs[i],
+    }));
+
+    await Province.findByIdAndUpdate(
+      id,
+      {
+        name,
+        description,
+        known_for,
+        pictures: pictures.map((img) => ({ img })),
+        famous_people,
+        famous_food,
+      },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
+
+    res.redirect(`/${id}`);
   } catch (err) {
-    res.send(err);
+    console.error("PUT error:", err);
+    res.status(500).send("Server Error during update");
   }
 });
 
-// create route
+// Create route:
 router.post("/", async (req, res) => {
   try {
     const { name, description, known_for } = req.body;
@@ -130,25 +170,19 @@ router.post("/", async (req, res) => {
     const pictures = Array.isArray(req.body.pictures)
       ? req.body.pictures
       : [req.body.pictures];
-
     const names = Array.isArray(req.body.names)
       ? req.body.names
       : [req.body.names];
-
     const bios = Array.isArray(req.body.bios) ? req.body.bios : [req.body.bios];
-
     const food_names = Array.isArray(req.body.food_names)
       ? req.body.food_names
       : [req.body.food_names];
-
     const food_descriptions = Array.isArray(req.body.food_descriptions)
       ? req.body.food_descriptions
       : [req.body.food_descriptions];
-
     const food_imgs = Array.isArray(req.body.food_imgs)
       ? req.body.food_imgs
       : [req.body.food_imgs];
-
     const people_imgs = Array.isArray(req.body.people_imgs)
       ? req.body.people_imgs
       : [req.body.people_imgs];
@@ -164,7 +198,7 @@ router.post("/", async (req, res) => {
       description: food_descriptions[i],
       img: food_imgs[i],
     }));
-    console.log({ famous_food });
+
     await Province.create({
       name,
       description,
@@ -177,6 +211,29 @@ router.post("/", async (req, res) => {
     res.redirect("/");
   } catch (err) {
     console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+// Edit form route:
+router.get("/:id/edit", async (req, res) => {
+  try {
+    const province = await Province.findById(req.params.id);
+    res.render(`edit`, { province });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+});
+
+// Show route:
+router.get("/:id", async (req, res) => {
+  try {
+    const province = await Province.findById(req.params.id);
+    console.log(province);
+    res.render("show", { province });
+  } catch (err) {
+    res.send(err);
   }
 });
 

@@ -99,48 +99,69 @@
   }
 </style>
 
-<form action="/" method="post">
+<form action="/<%= province._id %>?_method=PUT" method="POST">
   <div class="section">
     <label for="name">Name</label>
-    <input type="text" name="name" required />
+    <input type="text" name="name" value="<%= province.name %>" required />
 
     <label for="description">Description</label>
-    <input type="text" name="description" required />
+    <input
+      type="text"
+      name="description"
+      value="<%= province.description %>"
+      required
+    />
 
     <label for="known_for">Known For</label>
-    <input type="text" name="known_for" required />
+    <input
+      type="text"
+      name="known_for"
+      value="<%= province.known_for %>"
+      required
+    />
   </div>
 
   <div id="pictures_section" class="section">
     <h4>Pictures</h4>
+    <% province.pictures.forEach(p => { %>
     <div class="picture-group">
       <label>Picture</label>
-      <input type="text" name="pictures" required />
+      <input type="text" name="pictures" value="<%= p.img %>" required />
     </div>
+    <% }) %>
   </div>
 
   <div id="people_section" class="section">
     <h4>Famous People</h4>
+    <% province.famous_people.forEach(person => { %>
     <div class="people-group">
       <label>Name</label>
-      <input type="text" name="names" required />
+      <input type="text" name="names" value="<%= person.name %>" required />
       <label>Bio</label>
-      <input type="text" name="bios" required />
-      <lebal> image </lebal>
-      <input type="text" name="people_imgs" placeholder="Image URL" />
+      <input type="text" name="bios" value="<%= person.bio %>" required />
+      <label>Image</label>
+      <input type="text" name="people_imgs" value="<%= person.img %>" />
     </div>
+    <% }) %>
   </div>
 
   <div id="food_section" class="section">
     <h4>Famous Food</h4>
+    <% province.famous_food.forEach(food => { %>
     <div class="food-group">
       <label>Name</label>
-      <input type="text" name="food_names" required />
+      <input type="text" name="food_names" value="<%= food.name %>" required />
       <label>Description</label>
-      <input type="text" name="food_descriptions" required />
+      <input
+        type="text"
+        name="food_descriptions"
+        value="<%= food.description %>"
+        required
+      />
       <label>Image</label>
-      <input type="text" name="food_imgs" required />
+      <input type="text" name="food_imgs" value="<%= food.img %>" required />
     </div>
+    <% }) %>
   </div>
 
   <button onclick="add_picture()" type="button">Add Picture</button>
@@ -172,8 +193,8 @@
       <input type="text" name="names" required />
       <label>Bio</label>
       <input type="text" name="bios" required />
-      <lebal> image </lebal>
-      <input type="text" name="people_imgs" placeholder="Image URL" /> 
+      <label> image </label>
+      <input type="text" name="people_imgs" placeholder="Image URL" />
     `;
     container.appendChild(newInput);
   }

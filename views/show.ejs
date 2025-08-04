@@ -24,15 +24,26 @@
     text-decoration: underline;
   }
 
+  #updateBtn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #6c757d;
+    transition: background-color 0.3s ease-in-out;
+  }
+
   img {
     width: 300px;
     height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    box-shadow: 2px 4px 10px black;
     margin-bottom: 20px;
-    /* The key change to make images appear side-by-side */
+
     display: inline-block;
-    margin-right: 15px; /* Add some space between images */
+    margin-right: 15px;
   }
 
   p {
@@ -61,8 +72,23 @@
     margin-bottom: 5px;
   }
 
+  #li_head {
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    display: block;
+  }
+
   strong {
     color: #333;
+  }
+
+  #peopls {
+    display: flex;
+    width: 300px;
+  }
+
+  #peopls ul {
+    display: flex;
+    padding-left: 30px;
   }
 </style>
 
@@ -76,32 +102,35 @@
 <p>this province is known for:<strong> <%= province.known_for %></strong></p>
 
 <h1>famous people</h1>
-<% province.famous_people.forEach(el => { %>
-<ul>
-  <li>
-    <%= el.name %>
-    <ul>
-      <li><%= el.bio %></li>
-    </ul>
-  </li>
-</ul>
-<img src="<%= el.img %>" />
-<% }) %>
+<span id="peopls">
+  <% province.famous_people.forEach(el => { %>
+  <ul>
+    <li>
+      <img src="<%= el.img %>" />
+      <span id="li_head"><%= el.name %></span>
+      <ul>
+        <li><%= el.bio %></li>
+      </ul>
+    </li>
+  </ul>
 
+  <% }) %>
+</span>
 <h1>famous food</h1>
 <% province.famous_food.forEach(el => {%>
 <ul>
   <li>
-    <%= el.name %>
+    <img src="<%= el.img %> " width="300px" />
+    <span id="li_head"> <%= el.name %> </span>
     <ul>
       <li><%= el.description %></li>
     </ul>
   </li>
 </ul>
 
-<img src="<%= el.img %> " width="300px" />
 <%}) %>
 
 <br />
 
-<a href="/">go back</a> <br />
+<a href="/">go back</a>
+<a href="/<%= province._id %>/edit" id="updateBtn"> update </a>
