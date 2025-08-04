@@ -95,7 +95,15 @@ router.get("/", async (req, res) => {
 router.get("/new", (req, res) => {
   res.render("new");
 });
-
+// Delete route
+router.delete("/:id", async (req, res) => {
+  try {
+    await Province.findByIdAndDelete(req.params.id);
+    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+  }
+});
 // Show route province
 router.get("/:id", async (req, res) => {
   // res.render("show");
