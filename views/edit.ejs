@@ -1,216 +1,86 @@
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #e9ecef;
-    padding: 20px;
-    color: #495057;
-  }
+<%- include("partials/header") %>
 
-  form {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
+<div class="form-container">
+  <h1>Edit Province</h1>
+  <form action="/<%= province._id %>?_method=PUT" method="POST">
+    <div class="section">
+      <label for="name">Name</label>
+      <input type="text" name="name" value="<%= province.name %>" required />
 
-  form * {
-    box-sizing: border-box;
-  }
-
-  label {
-    display: block;
-    margin-bottom: 4px;
-    font-weight: bold;
-    color: #343a40;
-  }
-
-  input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    transition: border-color 0.3s ease-in-out;
-  }
-
-  input[type="text"]:focus {
-    border-color: #007bff;
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
-  }
-
-  .section {
-    border: 1px solid #e0e0e0;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    background-color: #f8f9fa;
-  }
-
-  .section h4 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #495057;
-    border-bottom: 2px solid #e9ecef;
-    padding-bottom: 5px;
-  }
-
-  .picture-group,
-  .people-group,
-  .food-group {
-    margin-bottom: 15px;
-  }
-
-  button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #6c757d;
-    transition: background-color 0.3s ease-in-out;
-  }
-
-  button:hover {
-    background-color: #5a6268;
-  }
-
-  button[type="submit"] {
-    background-color: #28a745;
-  }
-
-  button[type="submit"]:hover {
-    background-color: #218838;
-  }
-
-  a {
-    display: block;
-    margin-top: 20px;
-    text-align: center;
-    color: #007bff;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-</style>
-
-<form action="/<%= province._id %>?_method=PUT" method="POST">
-  <div class="section">
-    <label for="name">Name</label>
-    <input type="text" name="name" value="<%= province.name %>" required />
-
-    <label for="description">Description</label>
-    <input
-      type="text"
-      name="description"
-      value="<%= province.description %>"
-      required
-    />
-
-    <label for="known_for">Known For</label>
-    <input
-      type="text"
-      name="known_for"
-      value="<%= province.known_for %>"
-      required
-    />
-  </div>
-
-  <div id="pictures_section" class="section">
-    <h4>Pictures</h4>
-    <% province.pictures.forEach(p => { %>
-    <div class="picture-group">
-      <label>Picture</label>
-      <input type="text" name="pictures" value="<%= p.img %>" required />
-    </div>
-    <% }) %>
-  </div>
-
-  <div id="people_section" class="section">
-    <h4>Famous People</h4>
-    <% province.famous_people.forEach(person => { %>
-    <div class="people-group">
-      <label>Name</label>
-      <input type="text" name="names" value="<%= person.name %>" required />
-      <label>Bio</label>
-      <input type="text" name="bios" value="<%= person.bio %>" required />
-      <label>Image</label>
-      <input type="text" name="people_imgs" value="<%= person.img %>" />
-    </div>
-    <% }) %>
-  </div>
-
-  <div id="food_section" class="section">
-    <h4>Famous Food</h4>
-    <% province.famous_food.forEach(food => { %>
-    <div class="food-group">
-      <label>Name</label>
-      <input type="text" name="food_names" value="<%= food.name %>" required />
-      <label>Description</label>
+      <label for="description">Description</label>
       <input
         type="text"
-        name="food_descriptions"
-        value="<%= food.description %>"
+        name="description"
+        value="<%= province.description %>"
         required
       />
-      <label>Image</label>
-      <input type="text" name="food_imgs" value="<%= food.img %>" required />
+
+      <label for="known_for">Known For</label>
+      <input
+        type="text"
+        name="known_for"
+        value="<%= province.known_for %>"
+        required
+      />
     </div>
-    <% }) %>
-  </div>
 
-  <button onclick="add_picture()" type="button">Add Picture</button>
-  <button onclick="add_bio()" type="button">Add person</button>
-  <button onclick="add_food()" type="button">Add Food</button>
-  <button type="submit">Save</button>
-</form>
+    <div id="pictures_section" class="section">
+      <h4>Pictures</h4>
+      <% province.pictures.forEach(p => { %>
+      <div class="picture-group">
+        <label>Picture</label>
+        <input type="text" name="pictures" value="<%= p.img %>" required />
+      </div>
+      <% }) %>
+    </div>
 
-<a href="/"> home page </a>
+    <div id="people_section" class="section">
+      <h4>Famous People</h4>
+      <% province.famous_people.forEach(person => { %>
+      <div class="people-group">
+        <label>Name</label>
+        <input type="text" name="names" value="<%= person.name %>" required />
+        <label>Bio</label>
+        <input type="text" name="bios" value="<%= person.bio %>" required />
+        <label>Image</label>
+        <input type="text" name="people_imgs" value="<%= person.img %>" />
+      </div>
+      <% }) %>
+    </div>
 
-<script>
-  function add_picture() {
-    let container = document.getElementById("pictures_section");
-    let newInput = document.createElement("div");
-    newInput.classList.add("picture-group");
-    newInput.innerHTML = `
-      <label>Picture</label>
-      <input type="text" name="pictures" required />
-    `;
-    container.appendChild(newInput);
-  }
+    <div id="food_section" class="section">
+      <h4>Famous Food</h4>
+      <% province.famous_food.forEach(food => { %>
+      <div class="food-group">
+        <label>Name</label>
+        <input
+          type="text"
+          name="food_names"
+          value="<%= food.name %>"
+          required
+        />
+        <label>Description</label>
+        <input
+          type="text"
+          name="food_descriptions"
+          value="<%= food.description %>"
+          required
+        />
+        <label>Image</label>
+        <input type="text" name="food_imgs" value="<%= food.img %>" required />
+      </div>
+      <% }) %>
+    </div>
 
-  function add_bio() {
-    let container = document.getElementById("people_section");
-    let newInput = document.createElement("div");
-    newInput.classList.add("people-group");
-    newInput.innerHTML = `
-      <label>Name</label>
-      <input type="text" name="names" required />
-      <label>Bio</label>
-      <input type="text" name="bios" required />
-      <label> image </label>
-      <input type="text" name="people_imgs" placeholder="Image URL" />
-    `;
-    container.appendChild(newInput);
-  }
+    <div class="form-buttons">
+      <button onclick="add_picture()" type="button">Add Picture</button>
+      <button onclick="add_bio()" type="button">Add person</button>
+      <button onclick="add_food()" type="button">Add Food</button>
+      <button type="submit">Save</button>
+    </div>
+  </form>
+  <br />
+  <a href="/">home page</a>
+</div>
 
-  function add_food() {
-    let container = document.getElementById("food_section");
-    let newInput = document.createElement("div");
-    newInput.classList.add("food-group");
-    newInput.innerHTML = `
-      <label>Name</label>
-      <input type="text" name="food_names" required />
-      <label>Description</label>
-      <input type="text" name="food_descriptions" required />
-      <label>Image</label>
-      <input type="text" name="food_imgs" required />
-    `;
-    container.appendChild(newInput);
-  }
-</script>
+<%- include("partials/footer") %>

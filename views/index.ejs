@@ -1,84 +1,33 @@
-<style>
-  body {
-    font-family: sans-serif;
-    margin: 20px;
-  }
+<%- include("partials/header") %>
 
-  h1 {
-    color: #333;
-    text-align: center;
-  }
+<div class="container">
+  <h1>List of Provinces</h1>
 
-  a {
-    color: #007bff;
-    text-decoration: none;
-  }
+  <div class="action-buttons">
+    <a href="/new">Add New Province</a>
+  </div>
 
-  a:hover {
-    text-decoration: underline;
-  }
+  <ul class="province-list">
+    <% provinces.forEach(p => { %>
+    <li class="province-card">
+      <% if (p.pictures && p.pictures.length > 0) { %>
+      <img
+        src="<%= p.pictures[0].img %>"
+        alt="Image of <%= p.name %>"
+        class="province-card-image"
+      />
+      <% } %>
+      <h3><a href="/<%= p._id%>"> <%= p.name %> </a></h3>
+      <p><%= p.description %></p>
 
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  li {
-    border: 1px solid #ddd;
-    margin-bottom: 20px;
-    padding: 15px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-  }
-
-  h3 {
-    color: #555;
-    margin-top: 0;
-  }
-
-  p {
-    line-height: 1.6;
-  }
-
-  img {
-    border-radius: 10px;
-    margin-top: 10px;
-    margin-left: 30px;
-    max-width: 100%;
-    height: auto;
-    box-shadow: 1px 1px 5px black;
-  }
-
-  #deleteBtn {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #6c757d;
-    transition: background-color 0.3s ease-in-out;
-  }
-</style>
-
-<h1>List of Provinces</h1>
-
-<a href="/new"> new form </a>
-<ul>
-  <% provinces.forEach(p => { %>
-  <li>
-    <h3><a href="/<%= p._id%>"> <%= p.name %> </a></h3>
-    <p><%= p.description %></p>
-
-    <h3>Pictures</h3>
-    <% p.pictures.forEach(pic => {%>
-
-    <img src="<%= pic.img %>" width="300px" />
-
+      <div class="action-buttons">
+        <form action="/<%=p._id %>?_method=DELETE" method="post">
+          <input type="submit" value="DELETE" class="delete-btn" />
+        </form>
+      </div>
+    </li>
     <% }) %>
-    <form action="/<%=p._id %>?_method=DELETE" method="post">
-      <input type="submit" value="DELETE" id="deleteBtn" />
-    </form>
-  </li>
-  <% }) %>
-</ul>
+  </ul>
+</div>
+
+<%- include("partials/footer") %>
