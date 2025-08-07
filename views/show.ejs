@@ -3,43 +3,44 @@
 <div class="container">
   <h2><%= province.name %></h2>
 
-  <h3>Gallery</h3>
   <div class="image-gallery">
     <% province.pictures.forEach(pic => { %>
     <img src="<%= pic.img %>" alt="Image of <%= province.name %>" />
     <% }) %>
   </div>
 
-  <h3>About <%= province.name %></h3>
   <p><%= province.description %></p>
-  <h3><%= province.name %> Is Know for</h3>
-  <p><%= province.known_for %></p>
+  <p>This province is known for: <strong><%= province.known_for %></strong></p>
 
-  <h3>Famous People</h3>
-  <ul class="grid-container">
-    <% province.famous_people.forEach(el => { %>
-    <li class="card">
-      <img src="<%= el.img %>" alt="<%= el.name %>" />
-      <h4><%= el.name %></h4>
-      <p><%= el.bio %></p>
-    </li>
-    <% }) %>
-  </ul>
+  <div class="content-block">
+    <h3>Famous People</h3>
+    <ul class="grid-container">
+      <% province.famous_people.forEach(el => { %>
+      <li class="card">
+        <img src="<%= el.img %>" alt="<%= el.name %>" />
+        <h4><%= el.name %></h4>
+        <p><%= el.bio %></p>
+      </li>
+      <% }) %>
+    </ul>
+  </div>
 
-  <h3>Famous Food</h3>
-  <ul class="grid-container">
-    <% province.famous_food.forEach(el => {%>
-    <li class="card">
-      <img src="<%= el.img %>" alt="<%= el.name %>" />
-      <h4><%= el.name %></h4>
-      <p><%= el.description %></p>
-    </li>
-    <%}) %>
-  </ul>
+  <div class="content-block">
+    <h3>Famous Food</h3>
+    <ul class="grid-container">
+      <% province.famous_food.forEach(el => {%>
+      <li class="card">
+        <img src="<%= el.img %>" alt="<%= el.name %>" />
+        <h4><%= el.name %></h4>
+        <p><%= el.description %></p>
+      </li>
+      <%}) %>
+    </ul>
+  </div>
 
   <div class="action-buttons">
-    <a href="/" class="go-back">Go Back</a>
-    <a href="/<%= province._id %>/edit" class="update-btn">Update</a>
+    <a href="/" class="btn-secondary">Go Back</a>
+    <a href="/<%= province._id %>/edit" class="add-btn">Update</a>
   </div>
 </div>
 

@@ -3,10 +3,12 @@
 <div class="form-container">
   <h1>Edit Province</h1>
   <form action="/<%= province._id %>?_method=PUT" method="POST">
-    <div class="section">
+    <div class="form-field-group">
       <label for="name">Name</label>
       <input type="text" name="name" value="<%= province.name %>" required />
+    </div>
 
+    <div class="form-field-group">
       <label for="description">Description</label>
       <input
         type="text"
@@ -14,7 +16,9 @@
         value="<%= province.description %>"
         required
       />
+    </div>
 
+    <div class="form-field-group">
       <label for="known_for">Known For</label>
       <input
         type="text"
@@ -24,20 +28,20 @@
       />
     </div>
 
-    <div id="pictures_section" class="section">
-      <h4>Pictures</h4>
+    <h3>Pictures</h3>
+    <div id="pictures_section">
       <% province.pictures.forEach(p => { %>
-      <div class="picture-group">
+      <div class="form-field-group">
         <label>Picture</label>
         <input type="text" name="pictures" value="<%= p.img %>" required />
       </div>
       <% }) %>
     </div>
 
-    <div id="people_section" class="section">
-      <h4>Famous People</h4>
+    <h3>Famous People</h3>
+    <div id="people_section">
       <% province.famous_people.forEach(person => { %>
-      <div class="people-group">
+      <div class="form-field-group">
         <label>Name</label>
         <input type="text" name="names" value="<%= person.name %>" required />
         <label>Bio</label>
@@ -48,10 +52,10 @@
       <% }) %>
     </div>
 
-    <div id="food_section" class="section">
-      <h4>Famous Food</h4>
+    <h3>Famous Food</h3>
+    <div id="food_section">
       <% province.famous_food.forEach(food => { %>
-      <div class="food-group">
+      <div class="form-field-group">
         <label>Name</label>
         <input
           type="text"
@@ -73,10 +77,16 @@
     </div>
 
     <div class="form-buttons">
-      <button onclick="add_picture()" type="button">Add Picture</button>
-      <button onclick="add_bio()" type="button">Add person</button>
-      <button onclick="add_food()" type="button">Add Food</button>
-      <button type="submit">Save</button>
+      <button onclick="add_picture()" type="button" class="add-btn">
+        Add Picture
+      </button>
+      <button onclick="add_bio()" type="button" class="add-btn">
+        Add person
+      </button>
+      <button onclick="add_food()" type="button" class="add-btn">
+        Add Food
+      </button>
+      <button type="submit" class="submit-btn">Save</button>
     </div>
   </form>
   <br />

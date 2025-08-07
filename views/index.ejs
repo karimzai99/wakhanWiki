@@ -4,7 +4,7 @@
   <h1>List of Provinces</h1>
 
   <div class="action-buttons">
-    <a href="/new">Add New Province</a>
+    <a href="/new" class="add-btn">Add New Province</a>
   </div>
 
   <ul class="province-list">
@@ -17,12 +17,15 @@
         class="province-card-image"
       />
       <% } %>
-      <h3><a href="/<%= p._id%>"> <%= p.name %> </a></h3>
-      <p><%= p.description %></p>
-
-      <div class="action-buttons">
+      <div class="province-card-content">
+        <h3><a href="/<%= p._id%>"> <%= p.name %> </a></h3>
+        <p><%= p.description %></p>
+      </div>
+      <div class="province-card-actions">
         <form action="/<%=p._id %>?_method=DELETE" method="post">
-          <input type="submit" value="DELETE" class="delete-btn" />
+          <button type="submit" class="delete-btn">
+            <i class="fas fa-trash-alt"></i>
+          </button>
         </form>
       </div>
     </li>
