@@ -4,6 +4,7 @@ require("./config/database.js");
 
 const methodOverRide = require("method-override");
 const provinceController = require("./controllers/ProvinceController.js");
+const userController = require("./controllers/UserController.js");
 
 // data
 
@@ -23,6 +24,7 @@ app.use(methodOverRide("_method"));
 // });
 
 app.use("/", provinceController);
+app.use("/user", userController);
 app.listen(port, (req, res) => {
   console.log(`app is working at port ${port}`);
 });
