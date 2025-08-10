@@ -24,7 +24,9 @@ app.use(methodOverRide("_method"));
 // });
 
 app.use("/", provinceController);
+
 app.use("/user", userController);
+
 app.listen(port, (req, res) => {
   console.log(`app is working at port ${port}`);
 });

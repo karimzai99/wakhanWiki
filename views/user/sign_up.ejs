@@ -1,1 +1,54 @@
-<h1>new form</h1>
+<%- include("../partials/header") %>
+
+<div class="form-container">
+  <h1>Sign Up</h1>
+
+  <form action="/user/register" method="post">
+    <div class="form-field-group">
+      <label for="full_name"> Full Name: </label>
+      <input type="text" name="full_name" placeholder="enter your name" />
+    </div>
+
+    <div class="form-field-group">
+      <label for="email"> Email: </label>
+      <input type="text" name="email" placeholder="enter your Email" />
+    </div>
+
+    <div class="form-field-group">
+      <label for="password"> Password: </label>
+      <input
+        type="password"
+        name="password"
+        placeholder="create new password"
+      />
+    </div>
+
+    <div class="form-field-group">
+      <label for="confirm_password"> Retype Password: </label>
+      <input
+        type="password"
+        name="confirm_password"
+        placeholder="Retype your new password"
+      />
+    </div>
+    <div>
+      <% if(msg == 'complete') { %>
+      <h3>sign up successfull</h3>
+      <% } else if(msg == 'wrong_name') { %>
+      <h3>wrong full name</h3>
+      <% } else if(msg == 'wrong_email') { %>
+      <h3>email is invalid</h3>
+      <% } else if(msg == 'wrong_password') { %>
+      <h3>password must be 6 characters or more</h3>
+      <% } else if(msg == 'wrong_match') { %>
+      <h3>password is not matching</h3>
+      <% } else if(msg == 'email_exists') { %>
+      <h3>Email already exists. Please try another Email</h3>
+      <% } %>
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit" class="submit-btn">Create</button>
+    </div>
+  </form>
+</div>
