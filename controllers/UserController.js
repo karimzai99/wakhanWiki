@@ -31,6 +31,11 @@ router.get("/register", (req, res) => {
   res.render("user/sign_up", { msg: _msg });
 });
 
+router.get("/log_in", (req, res) => {
+  const _msg = req.query.msg;
+  res.render("user/log_in", { msg: _msg });
+});
+
 router.post("/register", async (req, res) => {
   // database logic
   try {
@@ -72,8 +77,28 @@ router.post("/register", async (req, res) => {
   } catch (err) {
     // res.redirect;
     console.log(err);
+    res.redirect("/user/register/msg=database_err" + err);
   }
   //   res.redirect("/user/register/?msg=complete");
+});
+
+router.post("/log_in", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.redirect("/user/log_in/?msg=wrong_email");
+    }
+    if (user.password !== password) {
+      return res.redirect("/user/log_in/?msg=wrong_password");
+    }
+
+    res.redirect("/");
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 module.exports = router;
