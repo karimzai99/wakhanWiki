@@ -8,12 +8,12 @@ const router = express.Router();
 router.get("/register/seed", (req, res) => {
   User.insertMany([
     {
-      name: "naseer",
+      full_name: "naseer",
       email: "naseer@wiki.com",
       password: "1234567",
     },
     {
-      name: "uzair",
+      full_name: "uzair",
       email: "uzair@wiki.com",
       password: "abcdefg",
     },
@@ -95,10 +95,19 @@ router.post("/log_in", async (req, res) => {
       return res.redirect("/user/log_in/?msg=wrong_password");
     }
 
+    console.log(user.full_name);
+    req.session.logged_in_user = user.full_name;
+    req.session.logged_in_role = "user";
     res.redirect("/");
   } catch (err) {
     console.log(err);
   }
+});
+
+router.get("/log_out", (req, res) => {
+  req.session.logged_in_user = null;
+  req.session.logged_in_role = null;
+  res.redirect("/");
 });
 
 module.exports = router;

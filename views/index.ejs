@@ -2,10 +2,14 @@
 
 <div class="container">
   <h1>List of Provinces</h1>
+  <% if (logged_in_user != null) { %> welcome <%= logged_in_user %>
+  <a href="/user/log_out" class="add-btn"> log out </a>
+  <% } else { %>
+
   <a href="/user/register" class="add-btn"> Sing up </a>
   <br />
   <a href="/user/log_in" class="add-btn"> log in </a>
-
+  <% } %>
   <div class="action-buttons">
     <a href="/new" class="add-btn">Add New Province</a>
   </div>
