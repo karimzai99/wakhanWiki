@@ -5,6 +5,7 @@ require("./config/database.js");
 const methodOverRide = require("method-override");
 const provinceController = require("./controllers/ProvinceController.js");
 const userController = require("./controllers/UserController.js");
+const commentController = require("./controllers/CommentController.js");
 var session = require("express-session");
 
 // data
@@ -43,6 +44,8 @@ app.use((req, res, next) => {
 app.use("/", provinceController);
 
 app.use("/user", userController);
+
+app.use("/comment", commentController);
 
 app.listen(port, (req, res) => {
   console.log(`app is working at port ${port}`);

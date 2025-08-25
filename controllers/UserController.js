@@ -95,7 +95,7 @@ router.post("/log_in", async (req, res) => {
       return res.redirect("/user/log_in/?msg=wrong_password");
     }
 
-    console.log(user.full_name);
+    // console.log(user.full_name);
     req.session.logged_in_user = user.full_name;
     req.session.logged_in_role = "user";
     res.redirect("/");

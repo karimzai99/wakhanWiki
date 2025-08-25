@@ -1,7 +1,7 @@
 const Province = require("../models/Province");
 const express = require("express");
 const router = express.Router();
-
+const Comment = require("../models/Comment");
 // SEED Route:
 router.get("/seed", (req, res) => {
   Province.insertMany([
@@ -78,6 +78,7 @@ router.get("/seed", (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const provinces = await Province.find();
+    // const comments = await Comment.find();
     res.render("index.ejs", { provinces });
   } catch (err) {
     res.send(err);
@@ -226,12 +227,26 @@ router.get("/:id/edit", async (req, res) => {
   }
 });
 
+// this route doesn't have the comment section yet
 // Show route:
+// router.get("/:id", async (req, res) => {
+//   try {
+//     const province = await Province.findById(req.params.id);
+//     // console.log(province);
+//     res.render("show", { province });
+//   } catch (err) {
+//     res.send(err);
+//   }
+// });
+
+// this version is fixed
 router.get("/:id", async (req, res) => {
   try {
     const province = await Province.findById(req.params.id);
-    console.log(province);
-    res.render("show", { province });
+
+    const comments = await Comment.find({ province: req.params.id });
+
+    res.render("show", { province: province, comments: comments });
   } catch (err) {
     res.send(err);
   }

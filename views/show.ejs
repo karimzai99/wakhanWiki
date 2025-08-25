@@ -38,6 +38,40 @@
     </ul>
   </div>
 
+  <!-- comment section -->
+  <div class="content-block">
+    <form action="/comment" method="post">
+      <label for="comment">Leave a Comment</label>
+      <input
+        type="text"
+        id="comment"
+        name="comment"
+        placeholder="Write your comment here..."
+        required
+      />
+
+      <div>
+        <h3>Comments</h3>
+
+        <div class="comments-section">
+          <% if (comments && comments.length > 0) { %>
+          <ul>
+            <% comments.forEach(comment => { %>
+            <li class="comment-item"><%= comment.Content %></li>
+            <% }) %>
+          </ul>
+          <% } else { %>
+          <p>No comments yet. Be the first to leave one!</p>
+          <% } %>
+        </div>
+      </div>
+
+      <input type="hidden" name="provinceId" value="<%= province._id %>" />
+
+      <input type="submit" value="Submit Comment" class="add-btn" />
+    </form>
+  </div>
+
   <div class="action-buttons">
     <a href="/" class="btn-secondary">Go Back</a>
     <a href="/<%= province._id %>/edit" class="add-btn">Update</a>
