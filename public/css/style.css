@@ -341,3 +341,61 @@ footer {
   color: #6c757d;
   font-size: 0.9rem;
 }
+
+/* comment  */
+.comment-container {
+  margin-top: 20px;
+  padding: 15px;
+  border-top: 1px solid black;
+  border-radius: 6px;
+  background-color: #fefefe;
+}
+
+.comments-list {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 10px;
+}
+
+.comment-item {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.comment-item strong {
+  margin-right: 5px;
+  color: #007bff;
+}
+
+.no-comments {
+  font-style: italic;
+  color: lightgrey;
+}
+
+.comment-form {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.comment-form input[type="text"] {
+  width: 50%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.comment-form .submit-btn {
+  background-color: #0537ed;
+  color: white;
+  padding: 10px;
+  margin: 4px 2px;
+  border-radius: 5px;
+  display: block;
+}
+
+.comment-form .submit-btn:hover {
+  background-color: #0056b3;
+}

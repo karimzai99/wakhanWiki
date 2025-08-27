@@ -106,8 +106,7 @@ router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { name, description, known_for } = req.body;
-
-    // The logic to handle form arrays is moved here
+    // Array.isArray => this changes non array type into array data type
     const pictures = Array.isArray(req.body.pictures)
       ? req.body.pictures
       : [req.body.pictures];
@@ -227,25 +226,13 @@ router.get("/:id/edit", async (req, res) => {
   }
 });
 
-// this route doesn't have the comment section yet
-// Show route:
-// router.get("/:id", async (req, res) => {
-//   try {
-//     const province = await Province.findById(req.params.id);
-//     // console.log(province);
-//     res.render("show", { province });
-//   } catch (err) {
-//     res.send(err);
-//   }
-// });
-
-// this version is fixed
 router.get("/:id", async (req, res) => {
   try {
     const province = await Province.findById(req.params.id);
 
-    const comments = await Comment.find({ province: req.params.id });
-
+    const comments = await Comment.find({ province: req.params.id }).populate(
+      "user"
+    );
     res.render("show", { province: province, comments: comments });
   } catch (err) {
     res.send(err);

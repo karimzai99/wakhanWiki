@@ -35,10 +35,11 @@ app.use(
 //   res.send(`<h1> everything is working </h1>`);
 // });
 
-//
+// it will give data to views
 app.use((req, res, next) => {
   res.locals.logged_in_user = req.session.logged_in_user || null;
   res.locals.logged_in_role = req.session.logged_in_role || null;
+  res.locals.footer = "copy right naseer karimzai 2025";
   next(); // work is done go forward
 });
 app.use("/", provinceController);

@@ -38,44 +38,56 @@
     </ul>
   </div>
 
-  <!-- comment section -->
-  <div class="content-block">
-    <form action="/comment" method="post">
-      <label for="comment">Leave a Comment</label>
-      <input
-        type="text"
-        id="comment"
-        name="comment"
-        placeholder="Write your comment here..."
-        required
-      />
 
-      <div>
-        <h3>Comments</h3>
 
-        <div class="comments-section">
-          <% if (comments && comments.length > 0) { %>
-          <ul>
-            <% comments.forEach(comment => { %>
-            <li class="comment-item"><%= comment.Content %></li>
-            <% }) %>
-          </ul>
-          <% } else { %>
-          <p>No comments yet. Be the first to leave one!</p>
-          <% } %>
-        </div>
+    <div class="content-block comment-container">
+      <h3>Comments</h3>
+
+      <div class="comments-section">
+        <% if (comments && comments.length > 0) { %>
+        <ul class="comments-list">
+          <% comments.forEach(comment => { %>
+          <li class="comment-item">
+            <b> <%= comment.user.full_name %> </b> <%=comment.Content %>
+          </li>
+          <% }) %>
+        </ul>
+        <% } else { %>
+        <p class="no-comments">No comments yet. Be the first to leave one!</p>
+        <% } %>
       </div>
 
-      <input type="hidden" name="provinceId" value="<%= province._id %>" />
+      <!-- Comment form -->
+      <form action="/comment" method="post" class="comment-form">
+        <label for="comment">Leave a Comment</label>
+        <input
+          type="text"
+          id="comment"
+          name="comment"
+          placeholder="Write your comment here..."
+          required
+        />
 
-      <input type="submit" value="Submit Comment" class="add-btn" />
-    </form>
+        <input type="hidden" name="provinceId" value="<%= province._id %>" />
+
+
+
+        <% if (logged_in_user) { %>
+<input type="submit" value="Submit" class="submit-btn" />
+       <% } else { %> 
+        <p> please log in to comment </p>
+        <%} %> 
+        
+      </form>
+    </div>
+
+    <div class="action-buttons">
+      <a href="/" class="btn-secondary">Go Back</a>
+      <a href="/<%= province._id %>/edit" class="add-btn">Update</a>
+    </div>
   </div>
 
-  <div class="action-buttons">
-    <a href="/" class="btn-secondary">Go Back</a>
-    <a href="/<%= province._id %>/edit" class="add-btn">Update</a>
-  </div>
+  <%- include("partials/footer") %>
+  <%= footer %>
 </div>
 
-<%- include("partials/footer") %>
