@@ -38,3 +38,12 @@ function add_food() {
     `;
   container.appendChild(newInput);
 }
+
+function toggleEditForm(commentId) {
+  const form = document.getElementById(`editForm-${commentId}`);
+  if (from.style.display === "none") {
+    form.style.display = "block";
+  } else {
+    form.style.display = "none";
+  }
+}

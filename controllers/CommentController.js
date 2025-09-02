@@ -48,4 +48,19 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+// edit comment route
+router.put("/:id", async (req, res) => {
+  try {
+    const comment = await Comment.findById(req.params.id);
+    const provinceId = comment.province;
+    await Comment.findByIdAndUpdate(req.params.id, {
+      Content: req.body.Content,
+    });
+    res.redirect(`/${provinceId}`);
+  } catch (err) {
+    console.log(err);
+    console.log(err);
+  }
+});
+
 module.exports = router;
