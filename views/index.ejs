@@ -2,7 +2,7 @@
 
 <div class="container">
   <h1>List of Provinces</h1>
-  <% if (logged_in_user != null) { %> welcome <%= logged_in_user %>
+  <% if (logged_in_user != null) { %> welcome <%= logged_in_user.full_name %>
   <a href="/user/log_out" class="add-btn"> log out </a>
   <% } else { %>
 

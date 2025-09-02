@@ -49,8 +49,22 @@
           <% comments.forEach(comment => { %>
           <li class="comment-item">
             <b> <%= comment.user.full_name %> </b> <%=comment.Content %>
+            
+                <% if (logged_in_user && comment.user._id.toString() === logged_in_user._id) { %>
+      <form action="/comment/<%= comment._id %>?_method=DELETE" method="POST" style="display:inline;">
+        <!-- <input type="submit" value="Delete"> -->
+          <button type="submit" class="delete-btn">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+      </form>
+    <% } %>
+            
           </li>
+       
+            
+         
           <% }) %>
+         
         </ul>
         <% } else { %>
         <p class="no-comments">No comments yet. Be the first to leave one!</p>
@@ -73,9 +87,10 @@
 
 
         <% if (logged_in_user) { %>
-<input type="submit" value="Submit" class="submit-btn" />
+        <input type="submit" value="Submit" class="submit-btn" />
+        <!-- <input type="button" value="delete"> -->
        <% } else { %> 
-        <p> please log in to comment </p>
+        <p> please <a href="/user/log_in"> log in </a> to comment </p>
         <%} %> 
         
       </form>

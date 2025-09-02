@@ -96,8 +96,16 @@ router.post("/log_in", async (req, res) => {
     }
 
     // console.log(user.full_name);
-    req.session.logged_in_user = user.full_name;
+
+    // req.session.logged_in_user = user.full_name; // previousely
+    // new changes: made avialable the entire user object.
+    req.session.logged_in_user = {
+      _id: user._id.toString(),
+      full_name: user.full_name,
+      email: user.email,
+    };
     req.session.logged_in_role = "user";
+
     res.redirect("/");
   } catch (err) {
     console.log(err);
