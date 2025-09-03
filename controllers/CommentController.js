@@ -55,6 +55,7 @@ router.put("/:id", async (req, res) => {
     const provinceId = comment.province;
     await Comment.findByIdAndUpdate(req.params.id, {
       Content: req.body.Content,
+      edited: true,
     });
     res.redirect(`/${provinceId}`);
   } catch (err) {

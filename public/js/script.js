@@ -41,7 +41,7 @@ function add_food() {
 
 function toggleEditForm(commentId) {
   const form = document.getElementById(`editForm-${commentId}`);
-  if (from.style.display === "none") {
+  if (form.style.display === "none") {
     form.style.display = "block";
   } else {
     form.style.display = "none";

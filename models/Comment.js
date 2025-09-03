@@ -8,6 +8,7 @@ const commentScheme = new mongoose.Schema({
   // refrence of Province for the comment AKA user name
   province: { type: mongoose.Schema.Types.ObjectId, ref: "Province" },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  edited: { type: Boolean, default: false },
 });
 
 const Comment = mongoose.model("Comment", commentScheme);
