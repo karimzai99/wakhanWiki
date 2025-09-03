@@ -40,7 +40,8 @@ router.post("/register", async (req, res) => {
   // database logic
   try {
     ///////////////
-    const { full_name, email, password, confirm_password } = req.body;
+    const { full_name, email, password, confirm_password, profile_pictures } =
+      req.body;
     let _msg = "";
     if (full_name.length < 3 || full_name.trim().length < full_name.length) {
       // trim() removes extra space befor and after
@@ -72,6 +73,7 @@ router.post("/register", async (req, res) => {
       full_name,
       email,
       password,
+      profile_pictures,
     });
     res.redirect("/user/register/?msg=complete");
   } catch (err) {

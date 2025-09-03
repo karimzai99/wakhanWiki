@@ -1,4 +1,5 @@
 const Province = require("../models/Province");
+
 const express = require("express");
 const router = express.Router();
 const Comment = require("../models/Comment");
@@ -78,6 +79,7 @@ router.get("/seed", (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const provinces = await Province.find();
+
     // const comments = await Comment.find();
     res.render("index.ejs", { provinces });
   } catch (err) {
