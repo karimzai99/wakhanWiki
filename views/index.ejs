@@ -9,10 +9,11 @@
   <a href="/user/register" class="add-btn"> Sing up </a>
   <br />
   <a href="/user/log_in" class="add-btn"> log in </a>
-  <% } %>
+  <% } %> <% if (logged_in_user) { %>
   <div class="action-buttons">
     <a href="/new" class="add-btn">Add New Province</a>
   </div>
+  <% } %>
 
   <ul class="province-list">
     <% provinces.forEach(p => { %>
@@ -29,11 +30,13 @@
         <p><%= p.description %></p>
       </div>
       <div class="province-card-actions">
+        <% if(logged_in_user) {%>
         <form action="/<%=p._id %>?_method=DELETE" method="post">
           <button type="submit" class="delete-btn">
             <i class="fas fa-trash-alt"></i>
           </button>
         </form>
+        <% } %>
       </div>
     </li>
     <% }) %>

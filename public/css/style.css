@@ -399,3 +399,10 @@ footer {
 .comment-form .submit-btn:hover {
   background-color: #0056b3;
 }
+
+#edited_comment {
+  color: #888888;
+  font-style: italic;
+  font-size: small;
+  text-decoration: underline;
+}
