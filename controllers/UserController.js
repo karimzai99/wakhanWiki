@@ -13,9 +13,12 @@ router.get("/register/seed", (req, res) => {
       password: "1234567",
     },
     {
-      full_name: "uzair",
-      email: "uzair@wiki.com",
-      password: "abcdefg",
+      full_name: "gharani",
+      email: "gharani@gmail.com",
+      password: "12345678",
+      profile_pictures:
+        "https://t4.ftcdn.net/jpg/04/31/64/75/360_F_431647519_usrbQ8Z983hTYe8zgA7t1XVc5fEtqcpa.jpg",
+      bio: "he is guniuse",
     },
   ])
     .then((response) => {
@@ -40,8 +43,14 @@ router.post("/register", async (req, res) => {
   // database logic
   try {
     ///////////////
-    const { full_name, email, password, confirm_password, profile_pictures } =
-      req.body;
+    const {
+      full_name,
+      email,
+      password,
+      confirm_password,
+      profile_pictures,
+      bio,
+    } = req.body;
     let _msg = "";
     if (full_name.length < 3 || full_name.trim().length < full_name.length) {
       // trim() removes extra space befor and after
@@ -74,6 +83,7 @@ router.post("/register", async (req, res) => {
       email,
       password,
       profile_pictures,
+      bio,
     });
     res.redirect("/user/register/?msg=complete");
   } catch (err) {
@@ -105,6 +115,8 @@ router.post("/log_in", async (req, res) => {
       _id: user._id.toString(),
       full_name: user.full_name,
       email: user.email,
+      profile_pictures: user.profile_pictures || "/images/defualt-avtar.png",
+      bio: user.bio,
     };
     req.session.logged_in_role = "user";
 
@@ -118,6 +130,11 @@ router.get("/log_out", (req, res) => {
   req.session.logged_in_user = null;
   req.session.logged_in_role = null;
   res.redirect("/");
+});
+
+router.get("/profile", (req, res) => {
+  console.log("user profile");
+  res.render("user/user_profile", { user: req.session.logged_in_user });
 });
 
 module.exports = router;

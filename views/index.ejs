@@ -4,6 +4,8 @@
   <h1>List of Provinces</h1>
   <% if (logged_in_user != null) { %> welcome <%= logged_in_user.full_name %>
   <a href="/user/log_out" class="add-btn"> log out </a>
+  <br />
+  <a href="/user/profile" class="add-btn">profile</a>
   <% } else { %>
 
   <a href="/user/register" class="add-btn"> Sing up </a>
