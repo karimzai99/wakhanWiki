@@ -137,4 +137,13 @@ router.get("/profile", (req, res) => {
   res.render("user/user_profile", { user: req.session.logged_in_user });
 });
 
+router.get("/edit/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.render("user/user_edit", { user });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
 module.exports = router;
