@@ -94,6 +94,35 @@ router.post("/register", async (req, res) => {
   //   res.redirect("/user/register/?msg=complete");
 });
 
+// UPDATE ROUTE: ( put )
+
+router.put("/edit/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { full_name, email, profile_pictures, bio } = req.body;
+
+    await User.findByIdAndUpdate(
+      id,
+      { full_name, email, profile_pictures, bio },
+      { new: true, runValidators: true }
+    );
+
+    req.session.logged_in_user = {
+      ...req.session.logged_in_user,
+      full_name,
+      email,
+      profile_pictures,
+      bio,
+    };
+
+    res.redirect("/user/profile");
+  } catch (err) {
+    console.log(err);
+    res.redirect("/user/edit/" + req.params.id + "?msg=error");
+  }
+});
+
+// Create route:
 router.post("/log_in", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -133,10 +162,10 @@ router.get("/log_out", (req, res) => {
 });
 
 router.get("/profile", (req, res) => {
-  console.log("user profile");
   res.render("user/user_profile", { user: req.session.logged_in_user });
 });
 
+// edite route
 router.get("/edit/:id", async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

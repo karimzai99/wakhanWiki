@@ -4,18 +4,38 @@ const express = require("express");
 const router = express.Router();
 
 // Creating comment
+// router.post("/", async (req, res) => {
+//   try {
+//     // const commentContent = req.body.comment;
+//     // const provinceId = req.body.provinceId;
+//     // const user_name = req.session.logged_in_user;
+//     // const userObj = await User.findOne({ full_name: user_name }); // findOne search parameter
+
+//     // await Comment.create({
+//     //   Content: commentContent,
+//     //   province: provinceId,
+//     //   user: userObj._id,
+//     // });
+
+//     const commentContent = req.body.comment;
+//     const provinceId = req.body.provinceId;
+
+//     await Comment.create({
+//       Content: commentContent,
+//       province: provinceId,
+//       user: req.session.logged_in_user._id,
+//     });
+//     res.redirect(`/${provinceId}`);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// });
+
 router.post("/", async (req, res) => {
   try {
-    // const commentContent = req.body.comment;
-    // const provinceId = req.body.provinceId;
-    // const user_name = req.session.logged_in_user;
-    // const userObj = await User.findOne({ full_name: user_name }); // findOne search parameter
-
-    // await Comment.create({
-    //   Content: commentContent,
-    //   province: provinceId,
-    //   user: userObj._id,
-    // });
+    if (!req.session.logged_in_user) {
+      return res.redirect("/user/log_in?msg=login_required");
+    }
 
     const commentContent = req.body.comment;
     const provinceId = req.body.provinceId;

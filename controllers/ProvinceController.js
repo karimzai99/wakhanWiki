@@ -231,6 +231,9 @@ router.get("/:id/edit", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const province = await Province.findById(req.params.id);
+    if (!province) {
+      return res.status(404).send("Province not found");
+    }
 
     const comments = await Comment.find({ province: req.params.id }).populate(
       "user"

@@ -48,8 +48,9 @@
         <ul class="comments-list">
           <% comments.forEach(comment => { %>
           <li class="comment-item">
-            <img src="<%= comment.user.profile_pictures %>" id="comment-profile_picture"> 
-            <b> <%= comment.user.full_name %> </b> <span style=" <%= comment.edited ? '' : comment.edited = 'display: none' %>" id="edited_comment" > Edited </span>
+           <img src="<%= comment.user.profile_pictures %>" id="comment-profile_picture">  
+
+            <b> <%= comment.user.full_name %> </b> <span style="<%= comment.edited ? '' : 'display:none;' %>" id="edited_comment">Edited</span>
             <ul style="list-style-type: none;"> <li> 
             <%=comment.Content %>
 
@@ -120,6 +121,6 @@
   </div>
 
   <%- include("partials/footer") %>
-  <%= footer %>
+ 
 </div>
 
