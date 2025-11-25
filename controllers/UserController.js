@@ -147,7 +147,16 @@ router.post("/log_in", async (req, res) => {
       profile_pictures: user.profile_pictures || "/images/defualt-avtar.png",
       bio: user.bio,
     };
-    req.session.logged_in_role = "user";
+    // req.session.logged_in_role = "user";
+
+    // new code
+    // this is indicates that the user role comes from the db  /-> req.session.logged_in_role = user.role || "editor";
+    req.session.logged_in_role = user.role || "editor";
+
+    // testing
+    console.log("ROLE FROM DB", user.role);
+    console.log("ROLE IN SESSION", req.session.logged_in_role);
+    // end of new code
 
     res.redirect("/");
   } catch (err) {

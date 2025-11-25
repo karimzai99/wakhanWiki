@@ -11,7 +11,8 @@
   <a href="/user/register" class="add-btn"> Sing up </a>
   <br />
   <a href="/user/log_in" class="add-btn"> log in </a>
-  <% } %> <% if (logged_in_user) { %>
+  <!-- changes for the roles previouse code in notes in line 66 -->
+  <% } %> <% if (logged_in_role === 'writer') { %>
   <div class="action-buttons">
     <a href="/new" class="add-btn">Add New Province</a>
   </div>
@@ -31,15 +32,18 @@
         <h3><a href="/<%= p._id%>"> <%= p.name %> </a></h3>
         <p><%= p.description %></p>
       </div>
+      <!-- previouse code in notes in line 73 -->
       <div class="province-card-actions">
-        <% if(logged_in_user) {%>
-        <form action="/<%=p._id %>?_method=DELETE" method="post">
+        <% if (logged_in_role === 'writer') { %>
+        <form action="/<%= p._id %>?_method=DELETE" method="post">
           <button type="submit" class="delete-btn">
             <i class="fas fa-trash-alt"></i>
           </button>
         </form>
         <% } %>
       </div>
+
+      <!-- end of province-card-actions -->
     </li>
     <% }) %>
   </ul>

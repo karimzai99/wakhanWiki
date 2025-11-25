@@ -112,12 +112,15 @@
       </form>
     </div>
 
+    <!-- previvouse code in notes in line -->
     <div class="action-buttons">
-      <a href="/" class="btn-secondary">Go Back</a>
-      <% if (logged_in_user) { %>
-      <a href="/<%= province._id %>/edit" class="add-btn">Update</a>
-      <% } %>
-    </div>
+  <a href="/" class="btn-secondary">Go Back</a>
+  <% if (logged_in_role === 'writer') { %>
+    <a href="/<%= province._id %>/edit" class="add-btn">Update</a>
+  <% } %>
+</div>
+
+    <!-- end of action-buttons -->
   </div>
 
   <%- include("partials/footer") %>
