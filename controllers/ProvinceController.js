@@ -3,6 +3,8 @@ const Province = require("../models/Province");
 const express = require("express");
 const router = express.Router();
 const Comment = require("../models/Comment");
+const { require_writer } = require("../middleware/auth");
+
 // SEED Route:
 router.get("/seed", (req, res) => {
   Province.insertMany([
@@ -88,12 +90,12 @@ router.get("/", async (req, res) => {
 });
 
 // New route:
-router.get("/new", (req, res) => {
+router.get("/new", require_writer, (req, res) => {
   res.render("new");
 });
 
 // Delete route:
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", require_writer, async (req, res) => {
   try {
     await Province.findByIdAndDelete(req.params.id);
     res.redirect("/");
@@ -104,7 +106,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 // UPDATE Route (PUT):
-router.put("/:id", async (req, res) => {
+router.put("/:id", require_writer, async (req, res) => {
   try {
     const { id } = req.params;
     const { name, description, known_for } = req.body;
@@ -165,7 +167,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Create route:
-router.post("/", async (req, res) => {
+router.post("/", require_writer, async (req, res) => {
   try {
     const { name, description, known_for } = req.body;
 
@@ -218,7 +220,7 @@ router.post("/", async (req, res) => {
 });
 
 // Edit form route:
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit", require_writer, async (req, res) => {
   try {
     const province = await Province.findById(req.params.id);
     res.render(`edit`, { province });

@@ -1,6 +1,7 @@
 // controllers/UserController.js
 const User = require("../models/User");
 const express = require("express");
+const bcrypt = require("bcrypt");
 const router = express.Router();
 
 /// seed data
@@ -77,11 +78,14 @@ router.post("/register", async (req, res) => {
     if (exit_user) {
       return res.redirect("/user/register/?msg=email_exists");
     }
+
+    // hashing password
+    const hashed_password = await bcrypt.hash(password, 10);
     // email already exist error
     await User.create({
       full_name,
       email,
-      password,
+      password: hashed_password,
       profile_pictures,
       bio,
     });
@@ -128,11 +132,12 @@ router.post("/log_in", async (req, res) => {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
+    const is_match = await bcrypt.compare(password, user.password);
 
     if (!user) {
       return res.redirect("/user/log_in/?msg=wrong_email");
     }
-    if (user.password !== password) {
+    if (!is_match) {
       return res.redirect("/user/log_in/?msg=wrong_password");
     }
 
@@ -154,8 +159,8 @@ router.post("/log_in", async (req, res) => {
     req.session.logged_in_role = user.role || "editor";
 
     // testing
-    console.log("ROLE FROM DB", user.role);
-    console.log("ROLE IN SESSION", req.session.logged_in_role);
+    // console.log("ROLE FROM DB", user.role);
+    // console.log("ROLE IN SESSION", req.session.logged_in_role);
     // end of new code
 
     res.redirect("/");
