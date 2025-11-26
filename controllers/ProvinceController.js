@@ -5,6 +5,7 @@ const router = express.Router();
 const Comment = require("../models/Comment");
 const { require_writer } = require("../middleware/auth");
 
+/*
 // SEED Route:
 router.get("/seed", (req, res) => {
   Province.insertMany([
@@ -76,7 +77,7 @@ router.get("/seed", (req, res) => {
       console.log(err);
     });
 });
-
+*/
 // Index route
 router.get("/", async (req, res) => {
   try {

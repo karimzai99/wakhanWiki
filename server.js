@@ -23,7 +23,7 @@ app.use(methodOverRide("_method"));
 // cookies initialize
 app.use(
   session({
-    secret: "afghanistan123@", // client site ecrypt
+    secret: process.env.SESSION_SECRET || "no_secret", // client site ecrypt
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }, // make true when deploying to https

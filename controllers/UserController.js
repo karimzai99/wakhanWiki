@@ -4,6 +4,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const router = express.Router();
 
+/*
 /// seed data
 
 router.get("/register/seed", (req, res) => {
@@ -30,6 +31,7 @@ router.get("/register/seed", (req, res) => {
     });
 });
 
+*/
 router.get("/register", (req, res) => {
   const _msg = req.query.msg;
   res.render("user/sign_up", { msg: _msg });
