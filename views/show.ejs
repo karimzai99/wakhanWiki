@@ -51,14 +51,15 @@
    <img src="<%= comment.user && comment.user.profile_pictures ? comment.user.profile_pictures : '/images/default-avatar.png' %>" id="comment-profile_picture">
 
    <b> <%= comment.user ? comment.user.full_name : 'unknown user' %> </b> 
-   
+
    <span style="<%= comment.edited ? '' : 'display:none;' %>" id="edited_comment">Edited</span>
-            <ul style="list-style-type: none;"> <li> 
+            
+   <br>
             <%=comment.Content %>
 
-            </li></ul>
+            <br>
 
-                <% if (logged_in_user && comment.user && comment.user._id && comment.user._id.toString() === logged_in_user._id) { %>
+                <% if ( logged_in_user  && comment.user && comment.user._id && comment.user._id.toString() === logged_in_user._id) { %>
                   
                   <!-- edit -->
                   <button onclick="toggleEditForm('<%= comment._id %>')">Edit</button>
