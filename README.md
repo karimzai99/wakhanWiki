@@ -156,7 +156,6 @@ The `.env` file is excluded from Git using `.gitignore`.
 ```bash
 git clone https://github.com/your-username/wakhanWiki.git
 cd wakhanWiki
-Improve mobile responsiveness
 ```
 
 ### 2. Install dependencies
