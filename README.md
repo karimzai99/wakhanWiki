@@ -1,207 +1,219 @@
-WakhanWiki
+# WakhanWiki
 
 WakhanWiki is a full-stack web application that showcases the provinces of Afghanistan.
-Users can explore each province, see what it’s known for (famous people, foods, culture), and interact through comments.
-The app includes authentication, user profiles, and a role-based permission system (Editor vs Writer).
 
-1. Features
-   1.1 Authentication & Profiles
+Users can explore each province, discover what it is known for, including famous people, foods, and culture, and interact through comments.
 
-User registration and login
+The application includes authentication, user profiles, and a role-based permission system with two roles: Editor and Writer.
 
-Passwords securely hashed with bcrypt
+---
 
-Session-based authentication using express-session
+## Overview
 
-User profile fields:
+WakhanWiki is designed to provide an informative and interactive platform for learning about the provinces of Afghanistan. It combines content management with community interaction by allowing users to browse province information and participate through comments based on their role.
 
-Full name
+---
 
-Email
+## Features
 
-Avatar (profile picture)
+### Authentication and User Profiles
 
-Bio
+- User registration and login
+- Passwords securely hashed using `bcrypt`
+- Session-based authentication using `express-session`
 
-1.2 Role-Based Access Control (RBAC)
+Each user profile includes:
 
-Each user has a role stored in the User model:
+- Full name
+- Email
+- Avatar (profile picture)
+- Bio
 
-Editor (default for new users)
+### Role-Based Access Control
 
-Can view all provinces
+Each user has a role stored in the `User` model.
 
-Can comment on provinces
+#### Editor
 
-Cannot create, edit, or delete provinces
+Default role for new users.
 
-Writer
+Permissions:
 
-Full CRUD access for provinces (create, update, delete)
+- View all provinces
+- Comment on provinces
+- Cannot create, edit, or delete provinces
+- Can edit and delete only their own comments
 
-Can still comment like an editor
+#### Writer
 
-Can only edit/delete their own comments
+Permissions:
 
-Implemented with:
+- Full CRUD access for provinces
+- Can comment on provinces
+- Can edit and delete only their own comments
 
-Role stored in MongoDB (role field in User schema)
+#### RBAC Implementation
 
-Role stored in session on login (req.session.logged_in_role)
+Role-based access is implemented with:
 
-Middleware in middleware/auth.js:
+- Role stored in MongoDB through the `role` field in the `User` schema
+- Role stored in session on login using `req.session.logged_in_role`
+- Middleware in `middleware/auth.js`
+  - `requireLogin`
+  - `requireWriter`
+- EJS conditionals to hide or show buttons based on the logged-in user's role
 
-requireLogin
+### Province Management
 
-requireWriter
+Writer users can:
 
-EJS conditionals to hide/show buttons based on role
-
-1.3 Province Management
-
-For Writer users:
-
-Add new provinces
-
-Edit existing provinces
-
-Delete provinces
+- Add new provinces
+- Edit existing provinces
+- Delete provinces
 
 Each province can include:
 
-Description
+- Description
+- Known for text
+- Famous people
+- Famous foods
+- Images
 
-“Known for” text
+All province data is stored in MongoDB using Mongoose models.
 
-Famous people
+### Comment System
 
-Famous foods
+- Any logged-in user, whether Editor or Writer, can comment on provinces
+- Users can edit and delete only their own comments
+- An `Edited` flag is shown when a comment is updated
 
-Images
+#### Ownership Protection
 
-All data is stored in MongoDB via Mongoose models.
+Server-side ownership checks are enforced so that only the owner of a comment can edit or delete it.
 
-1.4 Comment System
+This is enforced in `CommentController.js`, not only in the user interface.
 
-Any logged-in user (Editor or Writer) can comment on provinces
+#### Safe Rendering
 
-Users can edit and delete their own comments
+If a comment's associated user is missing, the application uses:
 
-“Edited” flag shown when a comment is updated
+- A default avatar
+- A `Deleted user` label
 
-Server-side ownership checks:
+This prevents crashes caused by orphaned comments.
 
-Only the comment’s owner can edit/delete it
+### Security
 
-Enforced in CommentController.js (not just in the UI)
+#### Password Security
 
-Safe rendering:
+- Passwords are hashed using `bcrypt` before being saved to the database
+- Login uses `bcrypt.compare` instead of plain-text comparison
 
-If a comment’s user is missing, the app uses:
+#### Route Protection
 
-A default avatar
+- Province CRUD routes are protected with `requireWriter`
+- Comment routes are protected with both login and ownership checks
 
-“Deleted user” label
+#### Environment Variables
 
-Prevents crashes from orphaned comments
+Sensitive configuration is stored in a `.env` file:
 
-1.5 Security
+- `MONGODB_URI`
+- `SESSION_SECRET`
 
-Passwords:
+The `.env` file is excluded from Git using `.gitignore`.
 
-Hashed using bcrypt before being saved in the database
+---
 
-Login uses bcrypt.compare instead of plain text comparison
+## Tech Stack
 
-Routes:
+### Backend
 
-Province CRUD routes protected with requireWriter middleware
+- Node.js
+- Express.js
+- express-session
+- bcrypt
+- dotenv
+- method-override
 
-Comment routes protected with both login and ownership checks
+### Database
 
-Environment Variables:
+- MongoDB Atlas
+- Mongoose
 
-MONGODB_URI and SESSION_SECRET stored in .env
+### Frontend
 
-.env is excluded from Git via .gitignore
+- EJS templating engine
+- Custom CSS
+- Basic client-side JavaScript for small UI interactions
 
-2. Tech Stack
+---
 
-Backend:
+## Installation and Running Locally
 
-Node.js
+### 1. Clone the repository
 
-Express.js
+```bash
+git clone https://github.com/your-username/wakhanWiki.git
+cd wakhanWiki
+Improve mobile responsiveness
+```
 
-express-session
-
-bcrypt
-
-dotenv
-
-method-override
-
-Database:
-
-MongoDB Atlas
-
-Mongoose (schemas & population)
-
-Frontend:
-
-EJS templating engine
-
-CSS (custom styling)
-
-Basic client-side JS (for small UI behaviors)
-
-3. Installation & Running Locally
-   4.1 Clone the repository
-   git clone https://github.com/your-username/wakhanWiki.git
-   cd wakhanWiki
-
-4.2 Install dependencies
+### 2. Install dependencies
+```bash
 npm install
+```
 
-4.3 Create a .env file in the project root
+### 3. Create a .env file in the project root
+```bash
 MONGODB_URI=your_mongodb_connection_string
 SESSION_SECRET=your_session_secret_here
+```
 
-4.4 Start the development server
+### 4. Start the development server
+```bash
 npm run dev
-
-# or
-
+```
+or run: 
+```bash
 node server.js
+```
 
-Open the app at:
+### 5. Open the application
+``` http://localhost:3000 ```
 
-http://localhost:3000
+### Current Status
 
-4. Current Status & Future Work
+WakhanWiki currently includes:
+- Complete authentication with bcrypt-secured passwords
+- Role-based access control for Editor and Writer
+- Secure province CRUD with backend middleware
+- Comment system with ownership protection
+- MVC structure with controllers, models, views, and middleware
 
-Right now, WakhanWiki includes:
 
-Complete authentication with bcrypt-secured passwords
+### Future Work
 
-Role-based access (Editor vs Writer)
+Planned improvements include:
+- Redesigning the user interface to make it more modern and polished
+- Improving the layout of province pages
+- Adding search functionality to search provinces by name
+- Adding image galleries for each province
+- Creating custom 403 and 404 error pages
 
-Secure province CRUD with backend middleware
+### Project Structure
 
-Comment system with ownership protection
+The application follows an MVC-style structure and is organized into:
+- `controllers`
+- `models`
+- `views`
+- `middleware`
+- `config `
 
-MVC structure with controllers, models, views, middleware
+This helps keep the codebase clean, modular, and easier to maintain.
 
-Future Tasks (Planned by the Developer)
+## Author
 
-Redesign the UI to make it more modern and visually polished
+### Naseer Ahmad Karimzai
 
-Improve layout of province pages
-
-Add search functionality (search provinces by name)
-
-Add image galleries per province
-
-Add nicer 403/404 error pages
-
-Improve mobile responsiveness
+WakhanWiki is being built as a full-stack project focused on clean structure, secure authentication, role-based permissions, and meaningful cultural content about Afghanistan.
