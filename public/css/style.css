@@ -1,7 +1,7 @@
 /* --- General Body and Page Layout --- */
 body {
   font-family: "Open Sans", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f8f9fa; /* A very light gray for a clean look */
+  background-color: #c0d9f2; /* A very light gray for a clean look */
   color: #343a40;
   padding: 20px;
   margin: 0;
@@ -85,7 +85,9 @@ strong {
   padding: 10px 20px;
   border-radius: 5px;
   font-weight: 600;
-  transition: background-color 0.3s, transform 0.2s;
+  transition:
+    background-color 0.3s,
+    transform 0.2s;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   text-align: center;
@@ -114,7 +116,9 @@ strong {
   cursor: pointer;
   padding: 5px 10px;
   border-radius: 50%;
-  transition: background-color 0.3s, color 0.3s;
+  transition:
+    background-color 0.3s,
+    color 0.3s;
 }
 
 .action-buttons .delete-btn:hover {
